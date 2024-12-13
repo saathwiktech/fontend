@@ -262,14 +262,14 @@ const WorkList = () => {
       {works.length > 0 ? (
         <ul className="space-y-2">
           {works.map((work) => (
-            <div className="block p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600"
+            <div className="block p-4 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600"
             >
             <Link
               to={`/dashboard/projects/works/${work._id}`}
               key={work._id}
               >
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">{work.name}</h2>
-              <p className="text-gray-500 dark:text-gray-400">Work ID: {work._id}</p>
+              <h2 className="text-3xl font-bold p-2 text-center text-gray-800 dark:text-gray-100">{work.name}</h2>
+              {/* <p className="text-gray-500 dark:text-gray-400">Work ID: {work._id}</p> */}
             </Link>
               <div>
               <button

@@ -31,7 +31,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             to={item.path}
             className={`flex items-center px-4 py-3 w-full text-left rounded-lg space-x-3 my-1 ${
               location.pathname === item.path
-                ? "bg-gray-200 dark:bg-gray-700"
+                ? "bg-gray-200 dark:bg-red-700"
                 : "hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
           >

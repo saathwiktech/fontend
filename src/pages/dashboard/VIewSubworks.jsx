@@ -328,7 +328,7 @@ useEffect(() => {
 
     return (
         <div className="p-4">
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-wrap">
                 <div className="">
 
                     <h2 className="text-lg font-bold mb-4">Subwork: {subwname}</h2>
@@ -457,19 +457,23 @@ useEffect(() => {
 
 
             {/* Table */}
-            <div className="overflow-x-auto">
-                <table className="min-w-full border-collapse border border-gray-300">
+
+
+            <div className="container mx-auto mt-8 ">
+                <h3 className="font-bold mb-2">Main Table</h3>
+                <div className="overflow-x-auto">
+                <table className="min-w-full table-auto border-collapse border border-gray-300">
                     <thead>
                         <tr>
-                            <th className="border p-2">Serial No.</th>
-                            <th className="border p-2">Name</th>
-                            <th className="border p-2">Number</th>
-                            <th className="border p-2">Length (ft)</th>
-                            <th className="border p-2">Breadth (ft)</th>
-                            <th className="border p-2">Depth (ft)</th>
-                            <th className="border p-2">Quantity</th>
+                            <th className="border p-2 ">Serial No.</th>
+                            <th className="border p-2 ">Name</th>
+                            <th className="border p-2 ">Number</th>
+                            <th className="border p-2 ">Length (ft)</th>
+                            <th className="border p-2 ">Breadth (ft)</th>
+                            <th className="border p-2 ">Depth (ft)</th>
+                            <th className="border p-2 ">Quantity</th>
                             {/* <th className="border p-2">Total Value ₹</th> */}
-                            <th className="border p-2">Actions</th>
+                            <th className="border p-2 ">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -522,9 +526,10 @@ useEffect(() => {
                         
                     </tbody>
                 </table>
+                </div>
             </div>
             
-                <div className=" mt-[2vw] overflow-x-scroll">
+                <div className=" mt-[2vw] overflow-x-auto">
                     <div>
                         <h1><strong>Deduction Table</strong> </h1>
                     </div>

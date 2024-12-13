@@ -141,14 +141,14 @@ const Token= localStorage.getItem('token');
     </button>
   
     {subworks.length > 0 ? (
-      <ul className="space-y-2">
+      <ul className="space-y-2 text-center">
         {subworks.map((subwork) => (
           <Link to={`/dashboard/projects/works/subwork/${subwork._id}`}
             key={subwork._id}
-            className="block p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600"
+            className="block p-4 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600"
           >
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">{subwork.name}</h2>
-            <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p>
+            {/* <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p> */}
             <button
                 onClick={() => handleDeleteSubWork(subwork._id)}
                 className="mt-2 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600"

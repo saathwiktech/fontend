@@ -16,8 +16,8 @@ import ProjectList from "./dashboard/ProjectList.jsx";
 const DashboardPage = () => {
     
   const { login,isLoggedIn, setuSerData,user } = useAuth(); 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [activeItem, setActiveItem] = useState("Dashboard");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState("Projects");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,12 +30,12 @@ const DashboardPage = () => {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const menuItems = [
-    { id: "Dashboard", icon: <FiHome />, label: "Dashboard", path: "/dashboard" },
     { id: "Projects", icon: <FiBarChart />, label: "Projects",path: `/dashboard/projects` },
-    { id: "Settings", icon: <FiSettings />, label: "Settings",path: "/dashboard/settings" },
-    { id: "Default", icon: <FiBook />, label: "Default",path: "/dashboard/default" },
+    { id: "Dashboard", icon: <FiHome />, label: "Dashboard", path: "/dashboard" },
+    // { id: "Settings", icon: <FiSettings />, label: "Settings",path: "/dashboard/settings" },
+    // { id: "Default", icon: <FiBook />, label: "Default",path: "/dashboard/default" },
     { id: "Profile", icon: <FiUser />, label: "Profile", path: "/dashboard/profile" },
-    { id: "Logout", icon: <FiLogOut />, label: "Logout",path: "/dashboard" },
+    // { id: "Logout", icon: <FiLogOut />, label: "Logout",path: "/dashboard" },
   ];
 
   const renderContent = () => {
@@ -68,12 +68,13 @@ const DashboardPage = () => {
       return <p>View and edit your Profile.</p>;
     } else if (activeItem === "Logout") {
       localStorage.removeItem("logs");
+      console.log("Logges out gijigiji");
       navigate("/login");
     }
   };
 
   return (
-    <div className="min-h-screen flex transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
+    <div className="min-h-screen  transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
       {/* Sidebar */}
       <aside
         className={`fixed lg:static inset-y-0 left-0 z-50 w-64 transform ${

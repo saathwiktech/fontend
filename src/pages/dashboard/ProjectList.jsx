@@ -144,16 +144,15 @@ const ProjectList = () => {
           {projects.map((project) => (
             <li
               key={project._id}
-              className="bg-gray-100 p-4 rounded shadow-md dark:bg-gray-800 dark:text-white"
+              className="bg-gray-100 p-4 rounded shadow-md dark:bg-gray-800 dark:text-white text-center"
             >
               <Link
                 to={`/dashboard/projects/${project._id}`}
-                className="text-xl font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                className="text-xl font-semibold text-blue-600 hover:underline dark:text-blue-400 m-4"
               >
                 {project.name}
               </Link>
-              <p className="text-gray-500 dark:text-gray-400">Project ID: {project._id}</p>
-
+              {/* <p className="text-gray-500 dark:text-gray-400">Project ID: {project._id}</p> */}
               {/* Delete Project Button */}
               <button
                 onClick={() => handleDeleteProject(project._id)}
