@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { ClipLoader } from "react-spinners";
 import { Link,useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { FaTrash } from 'react-icons/fa';
 
 const ProjectList = () => {
   const { user } = useAuth();
@@ -140,15 +141,15 @@ const ProjectList = () => {
       </button>
 
       {projects.length > 0 ? (
-        <ul className="space-y-4">
+        <ul className=" flex items-center flex-col space-y-2 ">
           {projects.map((project) => (
             <li
               key={project._id}
-              className="bg-gray-100 p-4 rounded shadow-md dark:bg-gray-800 dark:text-white text-center"
+              className="bg-gray-100 rounded shadow-md dark:bg-gray-800 dark:text-white text-center p-6 w-full flex justify-around "
             >
               <Link
                 to={`/dashboard/projects/${project._id}`}
-                className="text-xl font-semibold text-blue-600 hover:underline dark:text-blue-400 m-4"
+                className="text-xl font-semibold text-blue-600 hover:underline dark:text-blue-300"
               >
                 {project.name}
               </Link>
@@ -156,9 +157,9 @@ const ProjectList = () => {
               {/* Delete Project Button */}
               <button
                 onClick={() => handleDeleteProject(project._id)}
-                className="mt-2 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600"
+                className=""
               >
-                Delete Project
+                <FaTrash size={24} className="text-red-500 hover:text-red-700 transition-all duration-300" />
               </button>
             </li>
           ))}
