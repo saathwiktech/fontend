@@ -11,9 +11,9 @@ const DownloadPdf = ({ wid, Token }) => {
     try {
       // Adding delay before making the server call
       //   await delay(1000);  // Wait for 1 second before proceeding
-      //   console.log("clicked");
+        console.log("clicked");
       const response = await fetch(
-        `http://localhost:3000/xcel-generate/${wid}`,
+        `${import.meta.env.VITE_API_URL}/xcel-generate/${wid}`,
         {
           method: "GET",
           headers: {
