@@ -767,13 +767,24 @@ function VIewSubworks() {
                   <label className="block text-sm font-medium mb-1 text-black dark:text-gray-300">
                     {field.charAt(0).toUpperCase() + field.slice(1)}:
                   </label>
-                  <input
+                  {field==="name"?(
+                    <input
                     type="text"
                     name={field}
                     value={formData[field]}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
                   />
+                  ):(
+                    <input
+                    type="number"
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                  />
+                  )}
+                  
                 </div>
               ))}
             </form>
