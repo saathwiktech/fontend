@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { useAuth } from "../../context/AuthContext";
 import { FaTrash } from "react-icons/fa";
+import DownloadPdfSubwork from "../../components/Buttons/DownloadPdfSubwork";
 function SubWorkList() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -94,7 +95,7 @@ function SubWorkList() {
         setSubworks((prevSubWorks) =>
           prevSubWorks.filter((subworks) => subworks._id !== swid)
         );
-        navigate(-1);
+        // navigate(-1);
         alert("Subwork deleted successfully!");
       } else {
         alert("Failed to delete Subwork");
@@ -104,6 +105,27 @@ function SubWorkList() {
       alert("An error occurred while deleting the Subwork");
     }
   };
+  const handleDownloadPdf = async (swid) => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/subwork-pdf-generate/${swid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+        // navigate(-1);
+        // alert("Subwork deleted successfully!");
+
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      alert("An error occurred while deleting the Subwork");
+    }
+  };
+ 
 
   if (loading) {
     return (
@@ -151,15 +173,18 @@ function SubWorkList() {
       {subworks.length > 0 ? (
         <ul className="space-y-2  ">
           {subworks.map((subwork) => (
+            <div  className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
+            >
             <Link
               to={`/dashboard/projects/works/subwork/${subwork._id}`}
               key={subwork._id}
-              className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
+              // className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
             >
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
                 {subwork.name}
               </h2>
               {/* <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p> */}
+            </Link>
               <button
                 onClick={() => handleDeleteSubWork(subwork._id)}
                 className=""
@@ -169,7 +194,9 @@ function SubWorkList() {
                   className="text-red-500 hover:text-red-700 transition-all duration-300"
                 />
               </button>
-            </Link>
+             
+              <DownloadPdfSubwork wid={subwork._id} Token={Token} />
+            </div>
           ))}
         </ul>
       ) : (
