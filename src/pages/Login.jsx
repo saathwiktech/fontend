@@ -16,7 +16,7 @@ const Login = () => {
 useEffect(() => {
    const exp= localStorage.getItem('logs');
    if(exp=="true"){
-       navigate('/dashboard')
+      navigate('/dashboard/projects')
    }
 
   //  console.log(import.meta.env.VITE_API_URL)
@@ -44,8 +44,9 @@ useEffect(() => {
             Token: response.data.token,
             expiry: decoded.exp
           });
-          localStorage.setItem('token', response.data.token);
           login(decoded);  
+          localStorage.setItem('token', response.data.token);
+          navigate('/dashboard/projects');
     } catch (error) {
       setMessage('Login failed. Please try again.');
     } finally {
