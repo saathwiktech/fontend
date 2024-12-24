@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 import { useAuth } from "../../context/AuthContext";
 import { FaTrash } from "react-icons/fa";
 import DownloadPdfSubwork from "../../components/Buttons/DownloadPdfSubwork";
+import DownloadExcell from "../../components/Buttons/DownloadExcell";
 function SubWorkList() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -196,6 +197,7 @@ function SubWorkList() {
               </button>
              
               <DownloadPdfSubwork wid={subwork._id} Token={Token} />
+              <DownloadExcell wid={subwork._id} Token={Token}/>
             </div>
           ))}
         </ul>
@@ -222,38 +224,7 @@ function SubWorkList() {
               className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
               placeholder="Enter subwork name"
             />
-            {/* <label>Length: (ft)</label>
-          <input
-            type="number"
-            value={newSubwork.length}
-            onChange={(e) => setNewSubwork({ ...newSubwork, length: e.target.value })}
-            className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
-            placeholder="Length"
-          />
-          <label>Breadth:(ft)</label>
-          <input
-            type="number"
-            value={newSubwork.breadth}
-            onChange={(e) => setNewSubwork({ ...newSubwork, breadth: e.target.value })}
-            className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
-            placeholder="Breadth"
-          />
-          <label>Depth:(ft)</label>
-          <input
-            type="number"
-            value={newSubwork.depth}
-            onChange={(e) => setNewSubwork({ ...newSubwork, depth: e.target.value })}
-            className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
-            placeholder="Depth"
-          /> */}
-            {/* <label>Total Value</label>
-          <input
-            type="number"
-            value={newSubwork.totalval}
-            onChange={(e) => setNewSubwork({ ...newSubwork, totalval: e.target.value })}
-            className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
-            placeholder="Total Value"
-          /> */}
+
             <div className="flex justify-end">
               <button
                 onClick={handleAddSubWork}
