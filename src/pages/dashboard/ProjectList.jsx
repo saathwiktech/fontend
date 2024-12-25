@@ -52,6 +52,7 @@ const ProjectList = () => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/addProject/${decoded.userId}`,
         newProject,
@@ -70,8 +71,12 @@ const ProjectList = () => {
         clientnumber: "",
         clientaddress: "",
       });
+      setLoading(false);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to create project");
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -85,6 +90,7 @@ const ProjectList = () => {
 
   const handleDeleteProject = async (pid) => {
     try {
+      setLoading(true);
       const response = await axios.delete(`${import.meta.env.VITE_API_URL}/deleteProject/${decoded.userId}`, {
         headers: {
           'Authorization': `Bearer ${Token}`,
@@ -97,15 +103,20 @@ const ProjectList = () => {
 
       if (response.status === 200) {
         // Remove the project from the UI without needing to reload
+        setLoading(false);
         setProjects((prevProjects) => prevProjects.filter(project => project._id !== pid));
-        
-        alert('Project deleted successfully!');
+        // alert('Project deleted successfully!');
       } else {
         alert('Failed to delete project');
+        setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       console.error('Error deleting project:', error);
       alert('An error occurred while deleting the project');
+    }
+    finally{
+      setLoading(false);
     }
   };
 

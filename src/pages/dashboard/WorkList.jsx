@@ -157,6 +157,7 @@ const WorkList = () => {
     };
 
     try {
+      setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/addWork/${pid}`,
         payload,
@@ -167,17 +168,23 @@ const WorkList = () => {
         }
       );
       setWorks((prevWorks) => [...prevWorks, response.data.work]);
+      setLoading(flase);
       setSuccessMessage(response.data.message);
       setIsModalOpen(false);
       setNewWorkName("");
-      console.log(payload);
+      // console.log(payload);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to add work");
+      setLoading(false);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
   const handleDeleteWork = async (wid) => {
     try {
+      setLoading(true);
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/deleteWork/${wid}`,
         {
@@ -189,16 +196,23 @@ const WorkList = () => {
       );
 
       if (response.status === 200) {
+
         // Remove the project from the UI without needing to reload
         setWorks((prevWorks) => prevWorks.filter((works) => works._id !== wid));
+        setLoading(false);
         // navigate(-1);
         // alert('Work deleted successfully!');
       } else {
         alert("Failed to delete project");
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error deleting Work:", error);
       alert("An error occurred while deleting the Work");
+      setLoading(false);
+    }
+    finally{
+      setLoading(false);
     }
   };
   const downloadExcel = async (wid) => {

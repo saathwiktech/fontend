@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
 function VIewSubworks() {
   const { user } = useAuth();
   const { wid } = useParams();
@@ -11,6 +12,7 @@ function VIewSubworks() {
   const [subworks, setSubworks] = useState([]);
   const [newSubworks, setNewSubworks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [btnloading, setBtnLoading] = useState(false);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [subwname, setSubwname] = useState("");
@@ -134,6 +136,7 @@ function VIewSubworks() {
   const handleSubmitBatch = async () => {
     try {
       // console.log(newSubworks)
+      setBtnLoading(true)
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/updateSubwork/${wid}`,
         { newDetails: newSubworks },
@@ -148,7 +151,9 @@ function VIewSubworks() {
       setSubworks(response.data.subwork.details);
       setNewSubworks([]);
       setShowModal(false);
+      setBtnLoading(false)
     } catch (err) {
+      setBtnLoading(false)
       setError(err.response?.data?.message || "Failed to submit subworks");
     }
   };
@@ -308,6 +313,7 @@ function VIewSubworks() {
   };
 
   const handleAddToReduction = async () => {
+    setBtnLoading(true);
     const updatedFormData = {
       ...formData,
       length: parseFloat(formData.length) || 0,
@@ -346,9 +352,16 @@ function VIewSubworks() {
     });
     // console.log("reductionform",reductions)
     setShowModal(false);
+    setBtnLoading(false)
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="#3498db" size={50} />
+      </div>
+    );
+  }
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -463,7 +476,16 @@ function VIewSubworks() {
                 className=" m-1 px-4 py-2 bg-pink-500 dark:bg-pink-600 text-white rounded"
                 onClick={handleAddToReduction}
               >
-                Add to Deduction
+                {btnloading ? (
+                        <div className="flex justify-center items-center space-x-2">
+                          <div className="loader border-4 border-t-transparent border-white dark:border-gray-800 dark:border-t-gray-300 rounded-full w-6 h-6 animate-spin"></div>
+                        </div>
+                      ) : (
+                        <span>
+                          Add to Deduction
+                        </span>
+                      )}
+                
               </button>
             </div>
             {newSubworks.length > 0 && (
@@ -498,7 +520,16 @@ function VIewSubworks() {
                   className="mt-2 px-4 py-2 bg-green-500 dark:bg-green-600 text-white rounded"
                   onClick={handleSubmitBatch}
                 >
-                  Submit Batch
+                  {btnloading ? (
+                          <div className="flex justify-center items-center space-x-2">
+                            <div className="loader border-4 border-t-transparent border-white dark:border-gray-800 dark:border-t-gray-300 rounded-full w-6 h-6 animate-spin"></div>
+                          </div>
+                        ) : (
+                          <span>
+                           Submit Batch
+                          </span>
+                        )}
+                  
                 </button>
               </div>
             )}

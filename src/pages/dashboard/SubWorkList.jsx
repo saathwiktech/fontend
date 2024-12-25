@@ -55,6 +55,8 @@ function SubWorkList() {
     }
 
     try {
+      
+      setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/addSubWork/${wid}`,
         { name, length, breadth, depth, totalval },
@@ -74,13 +76,21 @@ function SubWorkList() {
         depth: 0,
         totalval: 0,
       });
+      
+      setLoading(false);
     } catch (err) {
       setError("Failed to add subwork");
+      setLoading(false);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
   const handleDeleteSubWork = async (swid) => {
     try {
+      
+      setLoading(true);
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/deleteSubWork/${swid}`,
         {
@@ -97,12 +107,18 @@ function SubWorkList() {
           prevSubWorks.filter((subworks) => subworks._id !== swid)
         );
         // navigate(-1);
-        alert("Subwork deleted successfully!");
+        
+        setLoading(false);
+        // alert("Subwork deleted successfully!");
       } else {
         alert("Failed to delete Subwork");
+        
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error deleting project:", error);
+      
+      setLoading(false);
       alert("An error occurred while deleting the Subwork");
     }
   };
