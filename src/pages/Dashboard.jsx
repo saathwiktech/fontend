@@ -74,7 +74,7 @@ const DashboardPage = () => {
             <FiMenu size={24} />
           </button>
         </header>
-        <main className="flex-1 p-6">
+        <main className="flex-1 ">
           <h1 className="text-2xl font-bold mb-6">{activeItem}</h1>
           <div>{renderContent()}</div>
         </main>

@@ -369,7 +369,10 @@ function VIewSubworks() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="p-4">
+    <div className="p-1">
+      
+      <div className="max-h-[90vh] overflow-y-auto max-h-scroll"
+       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       <div className="flex justify-between flex-wrap">
         <div className="">
           <h2 className="text-lg font-bold mb-4">
@@ -839,6 +842,7 @@ function VIewSubworks() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -261,7 +261,7 @@ const WorkList = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className="">
       <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
         Works
       </h1>
@@ -284,10 +284,11 @@ const WorkList = () => {
         Add Work
       </button>
 
+      <div className="max-h-[80vh] overflow-y-auto max-h-scroll"
+       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {works.length > 0 ? (
         <ul className="space-y-2">
           {works.map((work) => (
-            // eslint-disable-next-line react/jsx-key
             <div className="block p-4 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600">
               <Link to={`/dashboard/projects/works/${work._id}`} key={work._id}>
                 <h2 className="text-2xl font-semibold p-2 text-center text-gray-800 dark:text-gray-100">
@@ -303,7 +304,6 @@ const WorkList = () => {
                   />
                 </button>
                 <button onClick={() => downloadExcel(work._id)} className="">
-                  {/* <FaFileExcel size={24} className="text-green-600" /> */}
                   <MdInsertDriveFile size={28} className="text-green-600" />
                 </button>
                 <DownloadPdf wid={work._id} Token={Token} />
@@ -311,12 +311,13 @@ const WorkList = () => {
             </div>
           ))}
         </ul>
-      ) : (
-        <p className="text-gray-500 text-center dark:text-gray-400">
+      
+    ) : (
+      <p className="text-gray-500 text-center dark:text-gray-400">
           No works found.
         </p>
       )}
-
+      </div>
       {/* Modal for adding work */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
@@ -331,36 +332,6 @@ const WorkList = () => {
               className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
               placeholder="Enter work name"
             />
-            {/* <select
-              value={newWorkName}
-              onChange={(e) => setNewWorkName(e.target.value)}
-              className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
-            >
-              <option value="">Select Work Field</option>
-              {fields.map((field, index) => (
-                <option key={index} value={field}>
-                  {field}
-                </option>
-              ))}
-            </select> */}
-            {/* <div>
-              {newFieldVal.map((field, index) => (
-                <div key={index}>
-                  {field.name === newWorkName ? (
-
-                    <>
-                      <label >Cost per SFT  ₹  </label>
-                      <input type="text" value={sftValue || field.sft} onChange={(e) => { setSftValue(e.target.value) }} />
-                      <br />
-                      <label >Cost per CFT  ₹ : </label>
-                      <input type="text" value={cftValue || field.cft} onChange={(e) => { setCftValue(e.target.value) }} />
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              ))}
-            </div> */}
             <div className="flex justify-end">
               <button
                 onClick={handleAddWork}
@@ -380,6 +351,7 @@ const WorkList = () => {
       )}
     </div>
   );
+
 };
 
 export default WorkList;

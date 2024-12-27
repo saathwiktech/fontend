@@ -156,7 +156,7 @@ function SubWorkList() {
   }
 
   return (
-    <div className="p-6">
+    <div className="">
       <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
         Subworks
       </h1>
@@ -182,6 +182,8 @@ function SubWorkList() {
         Add Subwork
       </button>
 
+      <div className="max-h-[80vh] overflow-y-auto max-h-scroll"
+       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {subworks.length > 0 ? (
         <ul className="space-y-2  ">
           {subworks.map((subwork) => (
@@ -218,7 +220,7 @@ function SubWorkList() {
           No subworks found.
         </p>
       )}
-
+</div>
       {/* Modal for adding subwork */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">

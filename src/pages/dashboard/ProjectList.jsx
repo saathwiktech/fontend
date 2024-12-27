@@ -167,6 +167,8 @@ const ProjectList = () => {
         Create Project
       </button>
 
+      <div className="max-h-[70vh] overflow-y-auto max-h-scroll"
+       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {projects.length > 0 ? (
         <ul className=" flex items-center flex-col space-y-2 ">
           {projects.map((project) => (
@@ -197,7 +199,7 @@ const ProjectList = () => {
       ) : (
         <p className="text-gray-500 dark:text-gray-400">No projects found.</p>
       )}
-
+    </div>
       {/* Modal to create a project */}
       {showModal && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">

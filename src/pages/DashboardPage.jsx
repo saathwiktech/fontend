@@ -164,7 +164,7 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 px-6 py-2">
         <Outlet />
       </main>
     </div>

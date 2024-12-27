@@ -17,7 +17,7 @@ const AppRouter = () => {
   return (
     <>
       <Navbar />
-      <div className="p-4">
+      <div className="">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
