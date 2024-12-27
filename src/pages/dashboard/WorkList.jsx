@@ -213,7 +213,7 @@ const WorkList = () => {
     }
   };
   const downloadExcel = async (wid) => {
-    console.log("Work id :", wid);
+    // console.log("Work id :", wid);
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/pdf-generate/${wid}`,

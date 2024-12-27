@@ -36,7 +36,7 @@ const ProjectList = () => {
           }
         );
         setProjects(response.data.projects);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (err) {
         setError("Failed to fetch projects");
       } finally {

@@ -344,7 +344,7 @@ function VIewSubworks() {
     );
     // console.log("reductionfrom",response.data.subwork.details)
     setSubworks(response.data.subwork.details);
-    console.log("reductionform", response.data.subwork.reductions);
+    // console.log("reductionform", response.data.subwork.reductions);
     setreductions(response.data.subwork.reductions);
     setFormData({
       name: "",
