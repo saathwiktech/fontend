@@ -6,7 +6,7 @@ const DownloadPdfSubwork = ({ wid, Token }) => {
     setIsLoading(true);
 
     try {
-      console.log("clicked");
+      // console.log("clicked");
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/subwork-pdf-generate/${wid}`,
         {

@@ -8,7 +8,7 @@ const DownloadExcell = ({ wid, Token }) => {
     setIsLoading(true); // Set loading state to true
 
     try {
-      console.log("Download button clicked");
+      // console.log("Download button clicked");
 
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/subwork-xcell-generate/${wid}`,
