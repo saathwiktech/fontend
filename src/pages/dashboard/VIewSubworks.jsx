@@ -72,9 +72,9 @@ function VIewSubworks() {
             unitsDefault.SFT !== 0
               ? subwork.length * subwork.breadth * subwork.number
               : subwork.length *
-              subwork.breadth *
-              subwork.depth *
-              subwork.number;
+                subwork.breadth *
+                subwork.depth *
+                subwork.number;
           sum += updatedQuantity;
           return { ...subwork, quantity: updatedQuantity };
         });
@@ -84,9 +84,9 @@ function VIewSubworks() {
             unitsDefault.SFT !== 0
               ? redeuction.length * redeuction.breadth * redeuction.number
               : redeuction.length *
-              redeuction.breadth *
-              redeuction.depth *
-              redeuction.number;
+                redeuction.breadth *
+                redeuction.depth *
+                redeuction.number;
           sum += updatedQuantity;
           return { ...redeuction, quantity: updatedQuantity };
         });
@@ -136,7 +136,7 @@ function VIewSubworks() {
   const handleSubmitBatch = async () => {
     try {
       // console.log(newSubworks)
-      setBtnLoading(true)
+      setBtnLoading(true);
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/updateSubwork/${wid}`,
         { newDetails: newSubworks },
@@ -151,9 +151,9 @@ function VIewSubworks() {
       setSubworks(response.data.subwork.details);
       setNewSubworks([]);
       setShowModal(false);
-      setBtnLoading(false)
+      setBtnLoading(false);
     } catch (err) {
-      setBtnLoading(false)
+      setBtnLoading(false);
       setError(err.response?.data?.message || "Failed to submit subworks");
     }
   };
@@ -166,7 +166,8 @@ function VIewSubworks() {
       let swid = wid;
       // console.log(`Deleting detail with ID: ${detailId} from Subwork ID: ${swid}`);
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL
+        `${
+          import.meta.env.VITE_API_URL
         }/deletesubworkfield/${swid}/${detailId}`,
         {
           headers: {
@@ -187,7 +188,8 @@ function VIewSubworks() {
       let swid = wid;
       // console.log(`Deleting detail with ID: ${detailId} from Subwork ID: ${swid}`);
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL
+        `${
+          import.meta.env.VITE_API_URL
         }/deletesubworkreduction/${swid}/${detailId}`,
         {
           headers: {
@@ -234,7 +236,8 @@ function VIewSubworks() {
     try {
       // console.log("editiong fu nction isnide ");
       const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/updateSubworkReduction/${wid}/${editingSubwork.id
+        `${import.meta.env.VITE_API_URL}/updateSubworkReduction/${wid}/${
+          editingSubwork.id
         }`,
         formData,
         {
@@ -263,7 +266,8 @@ function VIewSubworks() {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/updateSubworkDetail/${wid}/${editingSubwork.id
+        `${import.meta.env.VITE_API_URL}/updateSubworkDetail/${wid}/${
+          editingSubwork.id
         }`,
         formData,
         {
@@ -352,7 +356,7 @@ function VIewSubworks() {
     });
     // console.log("reductionform",reductions)
     setShowModal(false);
-    setBtnLoading(false)
+    setBtnLoading(false);
   };
 
   if (loading) {
@@ -368,7 +372,9 @@ function VIewSubworks() {
     <div className="p-4">
       <div className="flex justify-between flex-wrap">
         <div className="">
-          <h2 className="text-lg font-bold mb-4">Subwork: {subwname}</h2>
+          <h2 className="text-lg font-bold mb-4">
+            Subwork: {subwname.toUpperCase()}
+          </h2>
           <button
             onClick={() => navigate(-1)} // Navigate back
             className=" mx-1 bg-gray-500 text-white px-4 py-2 rounded mb-4 dark:bg-gray-700 dark:text-white"
@@ -455,7 +461,6 @@ function VIewSubworks() {
                       className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
                     />
                   )}
-
                 </div>
               ))}
             </form>
@@ -473,19 +478,16 @@ function VIewSubworks() {
                 Add to Batch
               </button>
               <button
-                className=" m-1 px-4 py-2 bg-pink-500 dark:bg-pink-600 text-white rounded"
+                className=" m-1 px-4 py-2 bg-pink-500 dark:bg-pink-500 text-white rounded"
                 onClick={handleAddToReduction}
               >
                 {btnloading ? (
-                        <div className="flex justify-center items-center space-x-2">
-                          <div className="loader border-4 border-t-transparent border-white dark:border-gray-800 dark:border-t-gray-300 rounded-full w-6 h-6 animate-spin"></div>
-                        </div>
-                      ) : (
-                        <span>
-                          Add to Deduction
-                        </span>
-                      )}
-                
+                  <div className="flex justify-center items-center space-x-2">
+                    <div className="loader border-4 border-t-transparent border-white dark:border-gray-800 dark:border-t-gray-300 rounded-full w-6 h-6 animate-spin"></div>
+                  </div>
+                ) : (
+                  <span>Add to Deduction</span>
+                )}
               </button>
             </div>
             {newSubworks.length > 0 && (
@@ -521,15 +523,12 @@ function VIewSubworks() {
                   onClick={handleSubmitBatch}
                 >
                   {btnloading ? (
-                          <div className="flex justify-center items-center space-x-2">
-                            <div className="loader border-4 border-t-transparent border-white dark:border-gray-800 dark:border-t-gray-300 rounded-full w-6 h-6 animate-spin"></div>
-                          </div>
-                        ) : (
-                          <span>
-                           Submit Batch
-                          </span>
-                        )}
-                  
+                    <div className="flex justify-center items-center space-x-2">
+                      <div className="loader border-4 border-t-transparent border-white dark:border-gray-800 dark:border-t-gray-300 rounded-full w-6 h-6 animate-spin"></div>
+                    </div>
+                  ) : (
+                    <span>Submit Batch</span>
+                  )}
                 </button>
               </div>
             )}
@@ -601,9 +600,9 @@ function VIewSubworks() {
                     {units.SFT != 0
                       ? subwork.length * subwork.breadth * subwork.number
                       : subwork.length *
-                      subwork.breadth *
-                      subwork.depth *
-                      subwork.number}
+                        subwork.breadth *
+                        subwork.depth *
+                        subwork.number}
                   </td>
 
                   {/* <td className="border p-2">{subwork.totalval}</td> */}
@@ -715,9 +714,9 @@ function VIewSubworks() {
                   {units.SFT != 0
                     ? reduction.length * reduction.breadth * reduction.number
                     : reduction.length *
-                    reduction.breadth *
-                    reduction.depth *
-                    reduction.number}
+                      reduction.breadth *
+                      reduction.depth *
+                      reduction.number}
                 </td>
 
                 {/* <td className="border p-2">{subwork.totalval}</td> */}
@@ -798,24 +797,23 @@ function VIewSubworks() {
                   <label className="block text-sm font-medium mb-1 text-black dark:text-gray-300">
                     {field.charAt(0).toUpperCase() + field.slice(1)}:
                   </label>
-                  {field==="name"?(
+                  {field === "name" ? (
                     <input
-                    type="text"
-                    name={field}
-                    value={formData[field]}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-                  />
-                  ):(
+                      type="text"
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                    />
+                  ) : (
                     <input
-                    type="number"
-                    name={field}
-                    value={formData[field]}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-                  />
+                      type="number"
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                    />
                   )}
-                  
                 </div>
               ))}
             </form>

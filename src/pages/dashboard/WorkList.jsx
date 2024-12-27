@@ -168,7 +168,7 @@ const WorkList = () => {
         }
       );
       setWorks((prevWorks) => [...prevWorks, response.data.work]);
-      setLoading(flase);
+      setLoading(false);
       setSuccessMessage(response.data.message);
       setIsModalOpen(false);
       setNewWorkName("");
@@ -176,8 +176,7 @@ const WorkList = () => {
     } catch (err) {
       setError(err.response?.data?.message || "Failed to add work");
       setLoading(false);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -196,7 +195,6 @@ const WorkList = () => {
       );
 
       if (response.status === 200) {
-
         // Remove the project from the UI without needing to reload
         setWorks((prevWorks) => prevWorks.filter((works) => works._id !== wid));
         setLoading(false);
@@ -210,8 +208,7 @@ const WorkList = () => {
       console.error("Error deleting Work:", error);
       alert("An error occurred while deleting the Work");
       setLoading(false);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -293,12 +290,12 @@ const WorkList = () => {
             // eslint-disable-next-line react/jsx-key
             <div className="block p-4 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600">
               <Link to={`/dashboard/projects/works/${work._id}`} key={work._id}>
-                <h2 className="text-3xl font-bold p-2 text-center text-gray-800 dark:text-gray-100">
-                  {work.name}
+                <h2 className="text-2xl font-semibold p-2 text-center text-gray-800 dark:text-gray-100">
+                  {work.name.toUpperCase()}
                 </h2>
                 {/* <p className="text-gray-500 dark:text-gray-400">Work ID: {work._id}</p> */}
               </Link>
-              <div className="flex flex-row space-x-8 justify-center mt-4">
+              <div className="flex flex-row space-x-8 justify-center m-4">
                 <button onClick={() => handleDeleteWork(work._id)} className="">
                   <FaTrash
                     size={24}

@@ -48,19 +48,14 @@ const DownloadExcell = ({ wid, Token }) => {
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className="px-2 py-2 "
-      disabled={isLoading}
-    >
+    <button onClick={handleClick} className="px-2 py-2 " disabled={isLoading}>
       {isLoading ? (
         <div className="flex justify-center items-center space-x-2">
           <div className="loader border-4 border-t-transparent border-white rounded-full w-6 h-6 animate-spin"></div>
         </div>
       ) : (
         <span className="flex items-center">
-          <FaFileExcel color="green" size={20} className="mr-2" />
-          
+          <FaFileExcel color="green" size={24} className="mr-2" />
         </span>
       )}
     </button>
