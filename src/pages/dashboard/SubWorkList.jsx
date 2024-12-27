@@ -55,7 +55,6 @@ function SubWorkList() {
     }
 
     try {
-      
       setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/addSubWork/${wid}`,
@@ -76,20 +75,18 @@ function SubWorkList() {
         depth: 0,
         totalval: 0,
       });
-      
+
       setLoading(false);
     } catch (err) {
       setError("Failed to add subwork");
       setLoading(false);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteSubWork = async (swid) => {
     try {
-      
       setLoading(true);
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/deleteSubWork/${swid}`,
@@ -107,17 +104,17 @@ function SubWorkList() {
           prevSubWorks.filter((subworks) => subworks._id !== swid)
         );
         // navigate(-1);
-        
+
         setLoading(false);
         // alert("Subwork deleted successfully!");
       } else {
         alert("Failed to delete Subwork");
-        
+
         setLoading(false);
       }
     } catch (error) {
       console.error("Error deleting project:", error);
-      
+
       setLoading(false);
       alert("An error occurred while deleting the Subwork");
     }
@@ -134,15 +131,13 @@ function SubWorkList() {
         }
       );
 
-        // navigate(-1);
-        // alert("Subwork deleted successfully!");
-
+      // navigate(-1);
+      // alert("Subwork deleted successfully!");
     } catch (error) {
       console.error("Error deleting project:", error);
       alert("An error occurred while deleting the Subwork");
     }
   };
- 
 
   if (loading) {
     return (
@@ -190,30 +185,31 @@ function SubWorkList() {
       {subworks.length > 0 ? (
         <ul className="space-y-2  ">
           {subworks.map((subwork) => (
-            <div  className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
-            >
-            <Link
-              to={`/dashboard/projects/works/subwork/${subwork._id}`}
-              key={subwork._id}
-              // className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
-            >
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
-                {subwork.name}
-              </h2>
-              {/* <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p> */}
-            </Link>
-              <button
-                onClick={() => handleDeleteSubWork(subwork._id)}
-                className=""
+            <div className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex flex-col items-center">
+              <Link
+                to={`/dashboard/projects/works/subwork/${subwork._id}`}
+                key={subwork._id}
+                // className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
               >
-                <FaTrash
-                  size={24}
-                  className="text-red-500 hover:text-red-700 transition-all duration-300"
-                />
-              </button>
-             
-              <DownloadPdfSubwork wid={subwork._id} Token={Token} />
-              <DownloadExcell wid={subwork._id} Token={Token}/>
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                  {subwork.name.toUpperCase()}
+                </h2>
+                {/* <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p> */}
+              </Link>
+              <div className="flex justify-center gap-6 mt-4 ml-5">
+                <button
+                  onClick={() => handleDeleteSubWork(subwork._id)}
+                  className=""
+                >
+                  <FaTrash
+                    size={24}
+                    className="text-red-500 hover:text-red-700 transition-all duration-300"
+                  />
+                </button>
+
+                <DownloadPdfSubwork wid={subwork._id} Token={Token} />
+                <DownloadExcell wid={subwork._id} Token={Token} />
+              </div>
             </div>
           ))}
         </ul>

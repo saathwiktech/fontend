@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { ClipLoader } from "react-spinners";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash } from "react-icons/fa";
 
 const ProjectList = () => {
   const { user } = useAuth();
@@ -20,8 +20,8 @@ const ProjectList = () => {
     clientaddress: "",
   });
   const [successMessage, setSuccessMessage] = useState(null);
-  const Token = localStorage.getItem('token');
-  const decoded=jwtDecode(Token);
+  const Token = localStorage.getItem("token");
+  const decoded = jwtDecode(Token);
   // console.log(decoded)
   useEffect(() => {
     const fetchProjects = async () => {
@@ -36,7 +36,7 @@ const ProjectList = () => {
           }
         );
         setProjects(response.data.projects);
-        console.log(response.data)
+        console.log(response.data);
       } catch (err) {
         setError("Failed to fetch projects");
       } finally {
@@ -45,9 +45,20 @@ const ProjectList = () => {
     };
 
     // if (user?.userId && user?.Token) {
-      fetchProjects();
+    fetchProjects();
     // }
   }, []);
+
+  //Timer for the success message to disappear
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   const handleCreateProject = async (e) => {
     e.preventDefault();
@@ -74,8 +85,7 @@ const ProjectList = () => {
       setLoading(false);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to create project");
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -91,31 +101,35 @@ const ProjectList = () => {
   const handleDeleteProject = async (pid) => {
     try {
       setLoading(true);
-      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/deleteProject/${decoded.userId}`, {
-        headers: {
-          'Authorization': `Bearer ${Token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          pid: pid
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/deleteProject/${decoded.userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+            "Content-Type": "application/json",
+          },
+          data: {
+            pid: pid,
+          },
         }
-      });
+      );
 
       if (response.status === 200) {
         // Remove the project from the UI without needing to reload
         setLoading(false);
-        setProjects((prevProjects) => prevProjects.filter(project => project._id !== pid));
+        setProjects((prevProjects) =>
+          prevProjects.filter((project) => project._id !== pid)
+        );
         // alert('Project deleted successfully!');
       } else {
-        alert('Failed to delete project');
+        alert("Failed to delete project");
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
-      console.error('Error deleting project:', error);
-      alert('An error occurred while deleting the project');
-    }
-    finally{
+      console.error("Error deleting project:", error);
+      alert("An error occurred while deleting the project");
+    } finally {
       setLoading(false);
     }
   };
@@ -138,7 +152,9 @@ const ProjectList = () => {
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Project List</h1>
+      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+        Project List
+      </h1>
 
       {successMessage && (
         <div className="text-green-500 mb-4">{successMessage}</div>
@@ -156,7 +172,7 @@ const ProjectList = () => {
           {projects.map((project) => (
             <li
               key={project._id}
-              className="bg-gray-100 rounded shadow-md dark:bg-gray-800 dark:text-white text-center p-6 w-full flex justify-around "
+              className="bg-gray-100 rounded shadow-md dark:bg-gray-800 dark:text-white text-center p-6 w-full flex justify-between items-center"
             >
               <Link
                 to={`/dashboard/projects/${project._id}`}
@@ -170,7 +186,10 @@ const ProjectList = () => {
                 onClick={() => handleDeleteProject(project._id)}
                 className=""
               >
-                <FaTrash size={24} className="text-red-500 hover:text-red-700 transition-all duration-300" />
+                <FaTrash
+                  size={24}
+                  className="text-red-500 hover:text-red-700 transition-all duration-300"
+                />
               </button>
             </li>
           ))}
@@ -186,7 +205,9 @@ const ProjectList = () => {
             <h2 className="text-2xl font-bold mb-4">Create Project</h2>
             <form onSubmit={handleCreateProject}>
               <div className="mb-4">
-                <label className="block mb-2 text-gray-900 dark:text-white">Project Name</label>
+                <label className="block mb-2 text-gray-900 dark:text-white">
+                  Project Name
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -197,7 +218,9 @@ const ProjectList = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-2 text-gray-900 dark:text-white">Client Name</label>
+                <label className="block mb-2 text-gray-900 dark:text-white">
+                  Client Name
+                </label>
                 <input
                   type="text"
                   name="clientname"
@@ -208,7 +231,9 @@ const ProjectList = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-2 text-gray-900 dark:text-white">Client Number</label>
+                <label className="block mb-2 text-gray-900 dark:text-white">
+                  Client Number
+                </label>
                 <input
                   type="number"
                   name="clientnumber"
@@ -219,7 +244,9 @@ const ProjectList = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-2 text-gray-900 dark:text-white">Client Address</label>
+                <label className="block mb-2 text-gray-900 dark:text-white">
+                  Client Address
+                </label>
                 <input
                   type="text"
                   name="clientaddress"
