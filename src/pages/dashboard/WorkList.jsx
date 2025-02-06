@@ -284,7 +284,7 @@ const WorkList = () => {
         Add Work
       </button>
 
-      <div className="max-h-[80vh] overflow-y-auto max-h-scroll"
+      <div className="max-h-[80vh] overflow-y-auto max-h-scroll pb-40 pt-10"
        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {works.length > 0 ? (
         <ul className="space-y-2">

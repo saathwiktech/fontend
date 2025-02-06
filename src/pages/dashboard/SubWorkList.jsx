@@ -182,7 +182,7 @@ function SubWorkList() {
         Add Subwork
       </button>
 
-      <div className="max-h-[80vh] overflow-y-auto max-h-scroll"
+      <div className="max-h-[80vh] overflow-y-auto max-h-scroll pb-40 pt-10"
        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {subworks.length > 0 ? (
         <ul className="space-y-2  ">

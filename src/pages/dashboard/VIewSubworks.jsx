@@ -601,11 +601,11 @@ function VIewSubworks() {
                                     }</td> */}
                   <td className="border p-2 border-gray-900 dark:border-gray-300">
                     {units.SFT != 0
-                      ? subwork.length * subwork.breadth * subwork.number
-                      : subwork.length *
+                      ? (subwork.length * subwork.breadth * subwork.number).toFixed(2)
+                      : (subwork.length *
                         subwork.breadth *
                         subwork.depth *
-                        subwork.number}
+                        subwork.number).toFixed(2)}
                   </td>
 
                   {/* <td className="border p-2">{subwork.totalval}</td> */}
@@ -715,11 +715,11 @@ function VIewSubworks() {
                                     }</td> */}
                 <td className="border p-2 border-gray-900 dark:border-gray-300">
                   {units.SFT != 0
-                    ? reduction.length * reduction.breadth * reduction.number
-                    : reduction.length *
+                    ? (reduction.length * reduction.breadth * reduction.number).toFixed(2)
+                    : (reduction.length *
                       reduction.breadth *
                       reduction.depth *
-                      reduction.number}
+                      reduction.number).toFixed(2)}
                 </td>
 
                 {/* <td className="border p-2">{subwork.totalval}</td> */}
@@ -776,8 +776,8 @@ function VIewSubworks() {
                 ₹{" "}
                 {new Intl.NumberFormat("en-IN").format(
                   units.SFT !== 0
-                    ? (totalQuantity - RtotalQuantity) * units.SFT
-                    : (totalQuantity - RtotalQuantity) * units.CFT
+                    ? ((totalQuantity - RtotalQuantity) * units.SFT).toFixed(2)
+                    : ((totalQuantity - RtotalQuantity) * units.CFT).toFixed(2)
                 )}
               </td>
               <td className="border p-2 border-gray-900 dark:border-gray-300">
