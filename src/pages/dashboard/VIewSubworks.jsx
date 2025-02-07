@@ -44,7 +44,7 @@ function VIewSubworks() {
   useEffect(() => {
     settotalQuantity(
       subworks.reduce(
-        (acc, subwork) => acc + parseInt(subwork.quantity || 0),
+        (acc, subwork) => acc + parseFloat(subwork.quantity || 0),
         0
       )
     );
@@ -643,7 +643,8 @@ function VIewSubworks() {
                 </td>
                 <td className="border p-2 font-bold border-gray-900 dark:border-gray-300 ">
                   {" "}
-                  {new Intl.NumberFormat("en-IN").format(totalQuantity)}
+                  {totalQuantity.toFixed(2)}
+                  {/* {new Intl.NumberFormat("en-IN").format(totalQuantity)} */}
                 </td>
                 <td className=""> </td>
               </tr>
@@ -757,7 +758,8 @@ function VIewSubworks() {
               </td>
               <td className="border p-2 font-bold border-gray-900 dark:border-gray-300">
                 {" "}
-                {new Intl.NumberFormat("en-IN").format(RtotalQuantity)}
+                {RtotalQuantity.toFixed(2)}
+                {/* {new Intl.NumberFormat("en-IN").format(RtotalQuantity)} */}
               </td>
               <td className=""> </td>
             </tr>
