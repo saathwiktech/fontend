@@ -3,9 +3,14 @@ import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { useAuth } from "../../context/AuthContext";
-import { FaTrash } from "react-icons/fa";
+import { FaCheck, FaStudiovinari, FaTimes, FaTrash, FaEdit } from "react-icons/fa";
 import DownloadPdfSubwork from "../../components/Buttons/DownloadPdfSubwork";
 import DownloadExcell from "../../components/Buttons/DownloadExcell";
+import { toast } from 'react-toastify';
+
+
+
+
 function SubWorkList() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -21,6 +26,10 @@ function SubWorkList() {
     depth: 0,
     totalval: 0,
   });
+
+  const [isEditing, setIsEditing] = useState(null); // Track which subwork is being edited
+  const [editName, setEditName] = useState("");
+
   const [successMessage, setSuccessMessage] = useState("");
   const Token = localStorage.getItem("token");
   useEffect(() => {
@@ -45,6 +54,65 @@ function SubWorkList() {
 
     fetchSubWorks();
   }, [wid, user]);
+
+  // edit functions
+  const handleSaveEdit = async (id) => {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/updateNameofSubWork/${id}`,
+        { name: editName },
+        {
+          headers: { Authorization: `Bearer ${Token}` },
+        }
+      );
+      // if(response.status === 201){
+      //   setSubworks((prevSubworks) =>
+      //     prevSubworks.map((subwork) =>
+      //       subwork._id === id ? { ...subwork, name: editName } : subwork
+      //     )
+      //   );
+      // }else{
+      //   alert("Error updating subwork");
+      // }
+      if (response.status === 201) {
+        setSubworks((prevSubworks) =>
+          prevSubworks.map((subwork) =>
+            subwork._id === id ? { ...subwork, name: editName } : subwork
+          )
+        );
+        toast.success("Subwork updated successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      } else {
+        toast.error("Error updating subwork", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+      setIsEditing(null);
+    } catch (error) {
+      console.error("Failed to update subwork:", error);
+      toast.error("Failed to update subwork. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+  const handleCancelEdit = () => {
+    setIsEditing(null);
+    setEditName("");
+  };
+
+  const handleEditClick = (id, currentName) => {
+    setIsEditing(id);
+    setEditName(currentName);
+  };
 
   const handleAddSubWork = async () => {
     const { name, length, breadth, depth, totalval } = newSubwork;
@@ -99,12 +167,9 @@ function SubWorkList() {
       );
 
       if (response.status === 200) {
-        // Remove the project from the UI without needing to reload
         setSubworks((prevSubWorks) =>
           prevSubWorks.filter((subworks) => subworks._id !== swid)
         );
-        // navigate(-1);
-
         setLoading(false);
         // alert("Subwork deleted successfully!");
       } else {
@@ -114,7 +179,6 @@ function SubWorkList() {
       }
     } catch (error) {
       console.error("Error deleting project:", error);
-
       setLoading(false);
       alert("An error occurred while deleting the Subwork");
     }
@@ -130,11 +194,7 @@ function SubWorkList() {
           },
         }
       );
-
-      // navigate(-1);
-      // alert("Subwork deleted successfully!");
     } catch (error) {
-      // console.error("Error deleting project:", error);
       alert("An error occurred while deleting the Subwork");
     }
   };
@@ -183,44 +243,76 @@ function SubWorkList() {
       </button>
 
       <div className="max-h-[80vh] overflow-y-auto max-h-scroll pb-40 pt-10"
-       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-      {subworks.length > 0 ? (
-        <ul className="space-y-2  ">
-          {subworks.map((subwork) => (
-            <div className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex flex-col items-center">
-              <Link
-                to={`/dashboard/projects/works/subwork/${subwork._id}`}
-                key={subwork._id}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+        {subworks.length > 0 ? (
+          <ul className="space-y-2  ">
+            {subworks.map((subwork) => (
+              <div className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex flex-col items-center">
+                <Link
+                  to={`/dashboard/projects/works/subwork/${subwork._id}`}
+                  key={subwork._id}
                 // className=" p-8 bg-white rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-10 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:shadow-gray-600 flex justify-between"
-              >
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
-                  {subwork.name.toUpperCase()}
-                </h2>
-                {/* <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p> */}
-              </Link>
-              <div className="flex justify-center gap-6 mt-4 ml-5">
-                <button
-                  onClick={() => handleDeleteSubWork(subwork._id)}
-                  className=""
                 >
-                  <FaTrash
-                    size={24}
-                    className="text-red-500 hover:text-red-700 transition-all duration-300"
-                  />
-                </button>
+                   {isEditing === subwork._id ? (<></>) : (
 
-                <DownloadPdfSubwork wid={subwork._id} Token={Token} />
-                <DownloadExcell wid={subwork._id} Token={Token} />
+                     <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                     {subwork.name.toUpperCase()}
+                     </h2>
+                    )}
+                  {/* <p className="text-gray-500 dark:text-gray-400">Subwork ID: {subwork._id}</p> */}
+                </Link>
+                  {isEditing === subwork._id ? (
+                    <input
+                      type="text"
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      className="border border-gray-300 dark:border-gray-600 p-2 rounded  text-gray-800 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  ) : (
+                   <></>
+                  )}
+                <div className="flex justify-center gap-6 mt-4 ml-5">
+
+                  {/* edit Name OF Subwork  */}
+                  {/* <EditSubworkBtn wid={subwork._id} Token={Token} /> */}
+                  {isEditing === subwork._id ? (
+                    <>
+                      <button onClick={() => handleSaveEdit(subwork._id)} className="text-green-500">
+                        <FaCheck size={25} />
+                      </button>
+                      <button onClick={handleCancelEdit} className="text-red-500">
+                        <FaTimes size={25} />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleDeleteSubWork(subwork._id)}
+                        className=""
+                      >
+                        <FaTrash
+                          size={24}
+                          className="text-red-500 hover:text-red-700 transition-all duration-300"
+                        />
+                      </button>
+
+                      <DownloadPdfSubwork wid={subwork._id} Token={Token} />
+                      <DownloadExcell wid={subwork._id} Token={Token} />
+                      <button onClick={() => handleEditClick(subwork._id, subwork.name)} className="text-blue-500">
+                        <FaEdit size={20} />
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-gray-500 text-center dark:text-gray-400">
-          No subworks found.
-        </p>
-      )}
-</div>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500 text-center dark:text-gray-400">
+            No subworks found.
+          </p>
+        )}
+      </div>
       {/* Modal for adding subwork */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
@@ -259,5 +351,7 @@ function SubWorkList() {
     </div>
   );
 }
+
+
 
 export default SubWorkList;
